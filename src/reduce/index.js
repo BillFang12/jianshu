@@ -5,6 +5,8 @@ const defaultState={
     list:[]
 }
 
+//纯函数指的是，给定固定的输入，就一定会有固定的输出，而且不会有任何副作用
+//reduce可以接收state,但是不能修改state
 export default (state=defaultState,action)=>{
     if(action.type===CHANGE_INPUT_VALUE){
         const newSate=JSON.parse(JSON.stringify(state));
