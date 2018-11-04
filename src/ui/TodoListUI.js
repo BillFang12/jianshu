@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Input,List} from "antd";
 
+//无状态的组件性能会更高
 const TodoListUI=(props) => {
     return (
         <div>
