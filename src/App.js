@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {Input,List,Button} from 'antd';
 import store from './store/';
 import {handleChangeValue,handleAddValue,handleDelValue} from './store/actionCreator';
+import TodoListUI from './ui/TodoListUI';
 
 class App extends Component {
 
@@ -11,21 +11,19 @@ class App extends Component {
       this.handleChangeValue=this.handleChangeValue.bind(this);
       this.handleAddValue=this.handleAddValue.bind(this);
       this.handleStoreChange=this.handleStoreChange.bind(this);
+      this.handleDelValue=this.handleDelValue.bind(this);
       store.subscribe(this.handleStoreChange);
   }
 
   render() {
     return (
-      <div>
-       <Input style={{width:'300px',marginLeft:'10px'}} placeholder="Basic usage" value={this.state.inputValue} onChange={this.handleChangeValue}/>
-        <Button type="primary" style={{marginLeft:'10px'}} onClick={this.handleAddValue}>提交</Button>
-        <List style={{marginTop:'10px',width:'300px',marginLeft:'10px'}}
-        bordered
-        dataSource={this.state.list}
-        renderItem={(item,index) => (<List.Item onClick={this.handleDelValue.bind(this,index)}>{item}</List.Item>)}
-
+        <TodoListUI
+            inputValue={this.state.inputValue}
+            handleChangeValue={this.handleChangeValue}
+            handleAddValue={this.handleAddValue}
+            handleDelValue={this.handleDelValue}
+            list={this.state.list}
         />
-      </div>
     );
   }
 
