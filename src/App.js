@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import store from './store/';
-import {handleChangeValue,handleAddValue,handleDelValue} from './store/actionCreator';
+import {handleChangeValue,handleAddValue,handleDelValue,initListAction} from './store/actionCreator';
 import TodoListUI from './ui/TodoListUI';
+
+import axios from 'axios';
 
 class App extends Component {
 
@@ -29,7 +31,17 @@ class App extends Component {
 
   handleChangeValue(e){
       const action=handleChangeValue(e.target.value);
-     store.dispatch(action);
+      store.dispatch(action);
+  }
+
+  componentDidMount(){
+      axios.get("/api/getData").then((resp)=> {
+            const data=resp.data;
+            const action=initListAction(data);
+             store.dispatch(action);
+      }).catch((e)=>{
+          console.log("get data fail")
+      });
   }
 
   handleStoreChange(){
@@ -46,6 +58,10 @@ class App extends Component {
       store.dispatch(action);
   }
 
-}
 
+  initListAction(value){
+     return initListAction(value);
+  }
+
+}
 export default App;
